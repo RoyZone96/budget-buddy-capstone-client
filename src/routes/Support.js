@@ -9,7 +9,7 @@ export default function Support() {
         <div>
             <Link to="/mybudgets">
                 <button className="back">
-                    <-- Back
+                     Back
                 </button>
             </Link>
             <SupportForm />

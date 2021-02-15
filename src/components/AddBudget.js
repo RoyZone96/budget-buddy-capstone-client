@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import config from './config'
-import Board from './components/Board'
 import ApiContext from './ApiContext'
-import ValidationError from './ValidationError'
 import TokenService from './services/TokenService'
 
 export default class AddBoard extends Component {
@@ -30,8 +29,8 @@ export default class AddBoard extends Component {
 
         const newBudget = JSON.stringify({
             user_id: TokenService.getUserId(),
-            budget_title: this.state.title.value,
-            money_available: this.state
+            budget_title: this.state.budget_title.value,
+            money_available: this.state.money_available.value
         })
 
         fetch(`${config.API_ENDPOINT}/budgets`,
@@ -56,10 +55,10 @@ export default class AddBoard extends Component {
             })
     }
 
-    setBudgetTitle = (title) => {
+    setBudgetTitle = (budget_title) => {
         this.setState({
-            title: {
-                value: title,
+            budget_title: {
+                value: budget_title,
                 touched: true
             }
         })
@@ -79,10 +78,11 @@ export default class AddBoard extends Component {
     render() {
         return (
             <section class="pop-up">
+                <Link to="/mybudgets">
+                    <button className="close"> X </button>
+                </Link>
                 <form className="new-budget" onSubmit={this.handleBudgetCreate()}>
-                    <Link to="/mybudgets">
-                        <button className="close"> X </button>
-                    </Link>
+
                     <p className="instructions"> Enter amount you have available </p>
                     <input className="title" placeholder="title" onChange={this.setBudgetTitle} required />
                     <span>$</span><input className="money" placeholder="0" onChange={this.setTargetAmount} required />

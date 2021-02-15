@@ -28,14 +28,14 @@ export default class QuestionForm extends Component {
 
   //   console.log(url)
   //   fetch(url)
-  //     .then((questionsRes) => {
-  //       if (!questionsRes.ok)
-  //         return questionsRes.json().then(e => Promise.reject(e));
-  //       return Promise.all([questionsRes.json()]);
+  //     .then((purchasesRes) => {
+  //       if (!purchasesRes.ok)
+  //         return purchasesRes.json().then(e => Promise.reject(e));
+  //       return Promise.all([purchasesRes.json()]);
   //     })
-  //     .then((questions) => {
-  //       console.log(questions)
-  //       this.setState({ currentQuestions: questions[0] });
+  //     .then((purchases) => {
+  //       console.log(purchases)
+  //       this.setState({ currentPurchases: purchases[0] });
   //       console.log(this.state)
   //     })
   //     .catch(error => {
@@ -47,25 +47,31 @@ export default class QuestionForm extends Component {
 
   addIncome = (event) => {
     event.preventDefault();
-    let x = money_available
-    let y = income
-
+    let x = this.state.money_available
+    let y = this.state.income
+    function add(x, y){
+      return x + y
+    }
+    return add
   }
 
   addPurchase = (event) => {
     event.preventDefault();
     this.setState({
-      purchases: [...this.state.purchases, { name: this.state.name, score: this.state.score }],
-      name: ''
+      purchases: [...this.state.purchases, { name: this.state.name, score: this.state.price }],
+      name: '',
+      price: ''
     })
   }
 
   calculateDifference = (event) => {
     event.preventDefault();
-    
-    this.setState({
-
-    })
+    let x = this.state.money_available
+    let y = this.state.price    
+      function difference(x, y){
+        return x - y
+      }
+      return difference
   }
 
 
@@ -74,29 +80,27 @@ export default class QuestionForm extends Component {
   saveBudget = (event) => {
     event.preventDefault();
 
-    // fetch(`${config.API_ENDPOINT}/budgets/{this.props.id}`,
-    //   {
-    //     method: 'PATCH',
-    //     headers: { 'content-type': 'application/json' },
-    //     body: JSON.stringify(newQuestion),
-    //   })
-    //   .then(res => {
-    //     if (!res.ok)
-    //       return res.json().then(e => Promise.reject(e))
-    //     return res.json()
-    //   })
-    //   .then(response =>
-    //     this.context.addQuestion(response),
-    //     console.log(ApiContext))
-    //   .then(
-    //     console.log(newQuestion),
-    //     this.props.history.push('/mybudget')
-    //   )
-    //   .catch(error => {
-    //     console.log(error.message)
-    //   })
-
-
+    fetch(`${config.API_ENDPOINT}/budgets/{this.props.id}`,
+      {
+        method: 'PATCH',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(newQuestion),
+      })
+      .then(res => {
+        if (!res.ok)
+          return res.json().then(e => Promise.reject(e))
+        return res.json()
+      })
+      .then(response =>
+        this.context.addQuestion(response),
+        console.log(ApiContext))
+      .then(
+        console.log(updatedBudget),
+        this.props.history.push('/mybudget')
+      )
+      .catch(error => {
+        console.log(error.message)
+      })
   }
 
 
