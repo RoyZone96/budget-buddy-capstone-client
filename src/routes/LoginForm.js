@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import AuthApiService from '../services/AuthApiService'
-import TokenService from '../services/TokenService'
+import AuthApiService from '../utilities/AuthApiService'
+import TokenService from '../utilities/TokenService'
 
 
 

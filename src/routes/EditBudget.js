@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import config from '../config'
-import ApiContext from '../ApiContext'
+import ApiContext from '../utilities/ApiContext'
 
 
 
@@ -24,24 +24,24 @@ export default class QuestionForm extends Component {
 
 
   componentDidMount() {
+    let url = `${config.API_ENDPOINT}/purchases/${this.props.id}`
 
-
-  //   console.log(url)
-  //   fetch(url)
-  //     .then((purchasesRes) => {
-  //       if (!purchasesRes.ok)
-  //         return purchasesRes.json().then(e => Promise.reject(e));
-  //       return Promise.all([purchasesRes.json()]);
-  //     })
-  //     .then((purchases) => {
-  //       console.log(purchases)
-  //       this.setState({ currentPurchases: purchases[0] });
-  //       console.log(this.state)
-  //     })
-  //     .catch(error => {
-  //       console.log({ error });
-  //     });
-   }
+    console.log(url)
+    fetch(url)
+      .then((purchasesRes) => {
+        if (!purchasesRes.ok)
+          return purchasesRes.json().then(e => Promise.reject(e));
+        return Promise.all([purchasesRes.json()]);
+      })
+      .then((purchases) => {
+        console.log(purchases)
+        this.setState({ currentPurchases: purchases[0] });
+        console.log(this.state)
+      })
+      .catch(error => {
+        console.log({ error });
+      });
+  }
 
 
 
@@ -49,10 +49,12 @@ export default class QuestionForm extends Component {
     event.preventDefault();
     let x = this.state.money_available
     let y = this.state.income
-    function add(x, y){
+    function add(x, y) {
       return x + y
     }
-    return add
+    this.setState({
+      money_available: add
+    })
   }
 
   addPurchase = (event) => {
@@ -67,11 +69,11 @@ export default class QuestionForm extends Component {
   calculateDifference = (event) => {
     event.preventDefault();
     let x = this.state.money_available
-    let y = this.state.price    
-      function difference(x, y){
-        return x - y
-      }
-      return difference
+    let y = this.state.price
+    function difference(x, y) {
+      return x - y
+    }
+    return difference
   }
 
 
@@ -80,11 +82,15 @@ export default class QuestionForm extends Component {
   saveBudget = (event) => {
     event.preventDefault();
 
+    const updatedBudget = {
+      money_available: this.state.money_available
+    }
+
     fetch(`${config.API_ENDPOINT}/budgets/{this.props.id}`,
       {
         method: 'PATCH',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(newQuestion),
+        body: JSON.stringify(updatedBudget),
       })
       .then(res => {
         if (!res.ok)
@@ -105,13 +111,13 @@ export default class QuestionForm extends Component {
 
 
   render() {
-    const {}
-    const {money_available} = this.state.props.money_available
+    // const { }
+    const { money_available } = this.state.props.money_available
     let purchases = this.state.purchases.map((purchases, idx) => (
       <li className="purchase">
         <span><input placeholder="purchase name"></input></span>
         <span><input className="amount" placeholder="0.00"></input></span>
-        <button>Calculate</button>
+        <button onClick={this.calculateDifference()}>Calculate</button>
         <button className="close"> X </button>
       </li>
     ))
@@ -127,7 +133,7 @@ export default class QuestionForm extends Component {
           </div>
           <div className="income-container">
             <input className="income" placeholder="0.00"></input>
-            <button>Add Income</button>
+            <button onClick={this.addIncome()}>Add Income</button>
           </div>
           <div className="subtraction-section">
             <button onClick={this.addPurchase()}>Add a purchases</button>

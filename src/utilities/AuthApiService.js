@@ -1,5 +1,5 @@
   
-import config from '../../jeopardy-generator-capstone-client/src/config'
+import config from '../config'
 
 const AuthApiService = {
   postLogin(credentials) {

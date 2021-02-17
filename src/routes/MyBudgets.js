@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-import NavLinks from '../components/NavLinks'
-import Welcome from '../components/Welcome'
-import SortSelect from '../components/SortSelect'
 import BudgetNav from '../components/BudgetNav'
 import LogoutButton from "../components/LogoutButton"
 import config from "../config"
-import ApiContext from '../ApiContext'
-import TokenService from '../services/TokenService'
+import ApiContext from '../utilities/ApiContext'
+import TokenService from '../utilities/TokenService'
 
 
 
@@ -66,9 +63,7 @@ export default class MyBudgets extends Component {
         })
         return (
             <div>
-                <Welcome />
                 <LogoutButton />
-                <SortSelect />
                 <section key={budget.id} className="budget-list">
                     {budgetsOutput}
                 </section>

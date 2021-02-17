@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import AuthApiService from '../services/AuthApiService'
-import TokenService from '../services/TokenService'
+import AuthApiService from '../utilities/AuthApiService'
+import TokenService from '../utilities/TokenService'
 
 
 export default class RegistrationForm extends Component {

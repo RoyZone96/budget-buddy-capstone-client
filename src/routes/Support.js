@@ -1,6 +1,5 @@
 import React from 'react'
 import SupportForm from '../components/SupportForm'
-import NavLinks from '../components/NavLinks'
 import { Link } from 'react-router-dom'
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import TokenService from '../services/TokenService'
+import TokenService from '../utilities/TokenService'
 
 export default class LougoutButton extends React.Component {
     state = {

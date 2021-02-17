@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import config from './config'
-import ApiContext from './ApiContext'
-import TokenService from './services/TokenService'
+import config from '../config'
+import ApiContext from '../utilities/ApiContext'
+import TokenService from '../utilities/TokenService'
 
 export default class AddBoard extends Component {
     constructor(props) {
@@ -79,7 +79,7 @@ export default class AddBoard extends Component {
         return (
             <section class="pop-up">
                 <Link to="/mybudgets">
-                    <button className="close"> X </button>
+                     X
                 </Link>
                 <form className="new-budget" onSubmit={this.handleBudgetCreate()}>
 
