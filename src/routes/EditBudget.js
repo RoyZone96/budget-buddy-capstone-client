@@ -14,16 +14,34 @@ export default class QuestionForm extends Component {
     super(props);
     this.state = {
       title: "",
-      money_available: [],
+      money_available: 0,
       purchases: [],
       existingPurchases: []
     }
     // this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
   }
 
 
   componentDidMount() {
+    // let url = `${config.API_ENDPOINT}/budgets/${this.props.id}`
+
+    // console.log(url)
+    // fetch(url)
+    //   .then((purchasesRes) => {
+    //     if (!purchasesRes.ok)
+    //       return purchasesRes.json().then(e => Promise.reject(e));
+    //     return Promise.all([purchasesRes.json()]);
+    //   })
+    //   .then((purchases) => {
+    //     console.log(purchases)
+    //     this.setState({ currentPurchases: purchases[0] });
+    //     console.log(this.state)
+    //   })
+    //   .catch(error => {
+    //     console.log({ error });
+    //   });
+
     let url = `${config.API_ENDPOINT}/purchases/${this.props.id}`
 
     console.log(url)
@@ -86,7 +104,7 @@ export default class QuestionForm extends Component {
       money_available: this.state.money_available
     }
 
-    fetch(`${config.API_ENDPOINT}/budgets/{this.props.id}`,
+    fetch(`${config.API_ENDPOINT}/budgets/${this.props.id}`,
       {
         method: 'PATCH',
         headers: { 'content-type': 'application/json' },
@@ -112,12 +130,13 @@ export default class QuestionForm extends Component {
 
   render() {
     // const { }
-    const { money_available } = this.state.props.money_available
+    const { money_available } = this.state
+
     let purchases = this.state.purchases.map((purchases, idx) => (
       <li className="purchase">
         <span><input placeholder="purchase name"></input></span>
         <span><input className="amount" placeholder="0.00"></input></span>
-        <button onClick={this.calculateDifference()}>Calculate</button>
+        <button onClick={this.calculateDifference}>Calculate</button>
         <button className="close"> X </button>
       </li>
     ))
@@ -125,7 +144,11 @@ export default class QuestionForm extends Component {
       <div>
         <section>
           <div className="back">
-            <button> Back </button>
+            <Link to="/mybudgets">
+              <button className="close">
+                Back
+              </button>
+            </Link>
           </div>
           <div className="available">
             <h1> Budget Title </h1>
@@ -133,14 +156,15 @@ export default class QuestionForm extends Component {
           </div>
           <div className="income-container">
             <input className="income" placeholder="0.00"></input>
-            <button onClick={this.addIncome()}>Add Income</button>
+            <button onClick={this.addIncome}>Add Income</button>
           </div>
           <div className="subtraction-section">
-            <button onClick={this.addPurchase()}>Add a purchases</button>
+            <button onClick={this.addPurchase}>Add a purchases</button>
             <ul>
               {purchases}
             </ul>
           </div>
+          <button type="submit" onClick={this.saveBudget}>Save</button>
         </section>
       </div >
     )

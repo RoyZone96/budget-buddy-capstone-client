@@ -26,7 +26,7 @@ export default class LoginForm extends Component {
   }
 
   handleLoginSuccess = () => {
-    window.location = '/mybudgets'
+    window.location = '/myBudget'
   }
 
   changeUsername(username) {
@@ -56,7 +56,7 @@ export default class LoginForm extends Component {
         password.value = ''
         TokenService.saveAuthToken(response.authToken)
         TokenService.saveUserId(response.user_id)
-        this.props.history.push('/mybudgets')
+        this.props.history.push('/myBudget')
       })
       .then(response => {
         console.log("response:", response)

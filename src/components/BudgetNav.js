@@ -79,7 +79,7 @@ export default class BudgetNav extends Component {
     return (
       <div className='boardNav'>
         <div className="button-spacer">
-          <Link to={`/budgets/${this.props.id}`}>
+          <Link to={`/budget/${this.props.id}`}>
             <button type="button"> EDIT </button>
           </Link>
         </div>

@@ -25,17 +25,17 @@ export default class MyBudgets extends Component {
                     return boardsRes.json().then(e => Promise.reject(e));
                 return Promise.all([boardsRes.json()]);
             })
-            .then(([budget]) => {
-                this.setState({ budget });
-                console.log(budget)
+            .then(([budgets]) => {
+                this.setState({ budgets });
+                console.log(budgets)
             })
             .catch(error => {
                 console.log({ error });
             });
     }
-    handleAddBudget = (budget) => {
+    handleAddBudget = (budgets) => {
         this.setState({
-            budget: [...this.state.budget, budget]
+            budgets: [...this.state.budgets, budgets]
         })
     }
 
@@ -44,17 +44,19 @@ export default class MyBudgets extends Component {
 
 
     render() {
-        const budget = this.state.budget
-        console.log(budget)
-        let budgetsOutput = budget.map(budget => {
-            console.log(budget)
+        const budgets = this.state.budgets
+        console.log(budgets)
+        if(budgets.map == 0){}
+        let budgetsOutput = budgets.map(budgets => {
+            console.log(budgets)
             return (
                 <ul>
                     <li className="menu-select">
                         <div className="menu-wrapper">
                             <div>
-                                <p className="title">{budget.budget_title}</p>
-                                <BudgetNav id={budget.id} />
+                                <p className="title">{budgets.budget_title}</p>
+                                <p className="money_available">{budgets.money_available}</p>
+                                <BudgetNav id={budgets.id} />
                             </div>
                         </div>
                     </li>
@@ -64,12 +66,17 @@ export default class MyBudgets extends Component {
         return (
             <div>
                 <LogoutButton />
-                <section key={budget.id} className="budget-list">
+                <div>
+                    <Link to='/support'>
+                        support
+                    </Link>
+                </div>
+                <section key={budgets.id} className="budget-list">
                     {budgetsOutput}
                 </section>
                 <section className="new-wrapper">
                     <Link to="/newbudget">
-                        <button className="new-board" type="button">NEW BOARD +</button>
+                        <button className="new-board" type="button">NEW BUDGET +</button>
                     </Link>
                 </section>
             </div>

@@ -4,7 +4,7 @@ import config from '../config'
 import ApiContext from '../utilities/ApiContext'
 import TokenService from '../utilities/TokenService'
 
-export default class AddBoard extends Component {
+export default class AddBudget extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,12 +17,10 @@ export default class AddBoard extends Component {
                 touched: false
             }
         }
-        this.handleSubmit = this.handleSubmit.bind(this)
+
     }
 
     static contextType = ApiContext
-
-
 
     handleBudgetCreate = (event) => {
         event.preventDefault();
@@ -44,12 +42,11 @@ export default class AddBoard extends Component {
                     return res.json().then(e => Promise.reject(e))
                 return res.json()
             })
-            .then(response => this.context.addBoard(response))
+            .then(response => this.context.addBudget(response))
             .then(() => {
-                this.props.history.push('/myBudgets')
+                this.props.history.push('/mybudgets')
             })
             .catch(error => {
-
                 console.log(error);
                 console.log(error.message)
             })
@@ -77,17 +74,24 @@ export default class AddBoard extends Component {
 
     render() {
         return (
-            <section class="pop-up">
-                <Link to="/mybudgets">
-                     X
+            <section className="new">
+                <Link to="/myBudget">
+                    <button className="close">
+                        X
+                    </button>
                 </Link>
-                <form className="new-budget" onSubmit={this.handleBudgetCreate()}>
-
+                <form className="new-budget" onSubmit={this.handleBudgetCreate}>
                     <p className="instructions"> Enter amount you have available </p>
-                    <input className="title" placeholder="title" onChange={this.setBudgetTitle} required />
-                    <span>$</span><input className="money" placeholder="0" onChange={this.setTargetAmount} required />
+                    <input
+                        className="title"
+                        placeholder="title" type="text"
+                        onChange={event => this.setBudgetTitle(event.target.value)} required />
+                    <span>$</span>
+                    <input className="money"
+                        placeholder="0"
+                        onChange={event => this.setTargetAmount(event.target.value)} required />
                     <div>
-                        <button className="post-button" type="submit" disabled={this.validateBoardTitle()}>Publish Budget</button>
+                        <button className="post-button" type="submit">Publish Budget</button>
                     </div>
                 </form>
             </section>
