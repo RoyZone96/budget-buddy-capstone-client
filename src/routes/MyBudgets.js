@@ -46,6 +46,10 @@ export default class MyBudgets extends Component {
     render() {
         const budgets = this.state.budgets
         console.log(budgets)
+        // if(money_available <= 0){
+        //     return <p className="money_available under">{budgets.money_available}</p>
+        // }
+        // else
         if(budgets.map == 0){}
         let budgetsOutput = budgets.map(budgets => {
             console.log(budgets)
