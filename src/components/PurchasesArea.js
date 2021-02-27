@@ -10,7 +10,7 @@ export default class PurchasesArea extends Component{
     }
 
     componentDidMount(){
-         let url = `${config.API_ENDPOINT}/purchases/${this.props.id}`
+         let url = `${config.API_ENDPOINT}/purchases`
 
     console.log(url)
     fetch(url)
