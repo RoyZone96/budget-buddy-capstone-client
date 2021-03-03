@@ -16,6 +16,10 @@ export default class EditBudget extends Component {
             budget_title: "",
             money_available: 0,
             income: 0,
+            purchase: {
+                purchase_name: "",
+                purchase_cost: 0
+            },
             purchases: [],
             existingPurchases: {}
         }
@@ -26,9 +30,9 @@ export default class EditBudget extends Component {
 
     componentDidMount() {
         const budget_id = this.props.match.params.id
-        const income_id = this.props.match.params.incomes_id
+        const incomes_id = this.props.match.params.incomes_id
         const purchases_id = this.props.match.params.purchases_id
-        console.log(budget_id, income_id, purchases_id)
+        console.log(budget_id, incomes_id, purchases_id)
 
         let budgetUrl = `${config.API_ENDPOINT}/budgets/${budget_id}`
 
@@ -61,8 +65,7 @@ export default class EditBudget extends Component {
         //     .then((res) => {
         //         console.log(res)
         //         this.setState({
-        //             budget_title: res.budget_title,
-        //             money_available: res.money_available
+        //             income: res.income
         //         })
         //         console.log(this.state)
         //     })
@@ -71,16 +74,27 @@ export default class EditBudget extends Component {
 
         let purchasesUrl = `${config.API_ENDPOINT}/purchases`
 
-        console.log(purchasesUrl)
+        
         fetch(purchasesUrl)
             .then((purchasesRes) => {
+                console.log(purchasesRes)
                 if (!purchasesRes.ok)
                     return purchasesRes.json().then(e => Promise.reject(e));
-                return Promise.all([purchasesRes.json()]);
+                return purchasesRes.json();
             })
             .then((purchases) => {
                 console.log(purchases)
-                this.setState({ purchases: purchases[0] });
+                console.log(budget_id)
+                let filterPurchases = [];
+                for (let i = 0; i < purchases.length; i++) {
+                    if (purchases[i].budget_id == budget_id) {
+                        filterPurchases.push(purchases[i]);
+                    }
+                }
+                //check if the validated data is structured in a new array objects
+                console.log(filterPurchases);
+
+                this.setState({ purchases: filterPurchases });
                 console.log(this.state)
             })
             .catch(error => {
@@ -91,12 +105,6 @@ export default class EditBudget extends Component {
 
     addIncome = (event) => {
         event.preventDefault();
-        const budget_id = this.props.match.params.id
-        const income_id = this.props.match.params.income_id
-        console.log(budget_id, income_id, "here")
-
-
-
         const userData = {}
 
         //get all the from data from the form component
@@ -106,92 +114,102 @@ export default class EditBudget extends Component {
         for (let value of formData) {
             userData[value[0]] = value[1]
         }
-        const newIncome = {
-            budget_id: budget_id,
-            income: this.state.income
-        }
 
-        const updatedIncome = {
-            income: this.state.income
-        }
+        let x = this.state.money_available
+        console.log(x)
+        let y = userData.income
+        console.log(y)
+
+        this.addMoney(parseInt(x), parseInt(y))
+        
+
 
         console.log('triggered')
-        console.log(userData)
+    }
 
+    addMoney = (x, y) => {
+        const updatedBudget = {
+            money_available: x + y
+        }
 
-        //if the income id isn't there do a post
-        if (income_id == undefined) {
-            console.log(newIncome)
-            console.log("posted")
-            fetch(`${config.API_ENDPOINT}/incomes`,
-                {
-                    method: 'POST',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify(newIncome),
-                })
-                .then(res => {
-                    if (!res.ok)
-                        return res.json().then(e => Promise.reject(e))
-                    return res.json()
-                })
-                .then(response => {
-                    this.setState({
-                        budget_id: response.budget_id,
-                        income: response.userData
-                    })
-                    console.log(ApiContext)
-                    console.log(newIncome)
-                })
-                .catch(error => {
-                    console.log(error.message)
-                })
-        }
-        //if it is do a patch
-        else {
-            console.log(updatedIncome)
-            console.log("updated")
-            fetch(`${config.API_ENDPOINT}/incomes/${income_id}`,
-                {
-                    method: 'PATCH',
-                    headers: { 'content-type': 'application/json' },
-                    body: JSON.stringify(updatedIncome),
-                })
-                .then(res => {
-                    if (!res.ok)
-                        return res.json().then(e => Promise.reject(e))
-                    return res.json()
-                })
-                .then(response => {
-                    this.setState({
-                        income: response.userData
-                    })
-                    console.log(ApiContext)
-                    console.log(updatedIncome)
-                })
-                .catch(error => {
-                    console.log(error.message)
-                })
-        }
+        const budget_id = this.props.match.params.id
+
+        console.log(updatedBudget)
+        console.log(budget_id)
+
+        fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
+            {
+                method: 'PATCH',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(updatedBudget),
+            })
+            .then(res => {
+                if (!res.ok)
+                    return res.json().then(e => Promise.reject(e))
+                return res.json()
+            })
+            .then(
+                this.setState({
+                    money_available: this.state.money_available
+                }),
+                this.props.history.push(`/budget/${budget_id}`)
+            )
+            .catch(error => {
+                console.log(error.message)
+            })
     }
 
 
+    subtractMoney = (x, y) => {
+        const updatedBudget = {
+            money_available: x - y
+        }
+
+        console.log(updatedBudget)
+        console.log(budget_id)
+
+        const budget_id = this.props.match.params.id
+
+        fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
+            {
+                method: 'PATCH',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(updatedBudget),
+            })
+            .then(res => {
+                if (!res.ok)
+                    return res.json().then(e => Promise.reject(e))
+                return res.json()
+            })
+            .then(
+                this.setState({
+                    money_available: this.state.money_available
+                }),
+                this.props.history.push(`/budget/${budget_id}`)
+            )
+            .catch(error => {
+                console.log(error.message)
+            })
+
+    }
 
 
     addPurchase = (event) => {
         event.preventDefault();
         this.setState({
             purchases: [...this.state.purchases, { name: this.state.name, price: this.state.price }],
-            name: '',
-            price: ''
+            name: "",
+            price: 0
         })
 
         const budget_id = this.props.match.params.id
 
         const newPurchase = {
             budget_id: budget_id,
-            purchase_name: this.state.purchases.name,
-            purchase_cost: this.state.purchases.price
+            purchase_name: this.state.purchase.purchase_name,
+            purchase_cost: this.state.purchase.purchase_cost
         }
+        console.log(newPurchase)
 
         fetch(`${config.API_ENDPOINT}/purchases`,
             {
@@ -207,10 +225,9 @@ export default class EditBudget extends Component {
             .then(response => {
                 this.setState({
                     budget_id: response.budget_id,
-                    purchase_name: this.state.purchases.name,
-                    purchase_cost: this.state.purchases.price
+                    purchase_name: this.state.purchase.purchase_name,
+                    purchase_cost: this.state.purchase.purchase_cost
                 })
-                console.log(newPurchase)
             })
             .catch(error => {
                 console.log(error.message)
@@ -232,34 +249,12 @@ export default class EditBudget extends Component {
         console.log(userData)
         console.log("triggered")
 
-        const purchase_id = this.props.match.params.id
+        let x = this.state.money_available
+        console.log(x)
+        let y = userData.purchase_cost
+        console.log(y)
 
-        const updatedPurchase = {
-            purchase_name: this.state.purchase_name,
-            purchase_cost: this.state.purchase_cost
-        }
-
-        fetch(`${config.API_ENDPOINT}/purchases/${purchase_id}`,
-            {
-                method: 'PATCH',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(updatedPurchase),
-            })
-            .then(res => {
-                if (!res.ok)
-                    return res.json().then(e => Promise.reject(e))
-                return res.json()
-            })
-            .then(response => {
-                this.setState({
-                    purchase_name: response.purchase_name,
-                    money_available: response.money_available
-                })
-                console.log(updatedPurchase)
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
+        this.subtractMoney(parseInt(x), parseInt(y))
     }
 
 
@@ -267,7 +262,7 @@ export default class EditBudget extends Component {
         e.preventDefault()
         const { id } = this.props;
 
-        fetch(`${config.API_ENDPOINT}/budgets/${id}`, {
+        fetch(`${config.API_ENDPOINT}/purchases/${id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -279,54 +274,32 @@ export default class EditBudget extends Component {
                 return res
             })
             .then(() => {
-                this.context.deleteBudget(id)
-                this.props.onDeleteBudget(id)
+                this.props.onDeletePurchase(id)
+                // let x = this.state.money_available
+                // let y = purchase_cost
+
+                // this.addMoney(parseInt(x), parseInt(y))
             })
             .catch(error => {
                 console.error({ error })
             })
     }
 
-    saveBudget = (event) => {
-        event.preventDefault();
 
-        const updatedBudget = {
-            money_available: this.state.money_available
-        }
-
-        fetch(`${config.API_ENDPOINT}/budgets/${this.props.id}`,
-            {
-                method: 'PATCH',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(updatedBudget),
-            })
-            .then(res => {
-                if (!res.ok)
-                    return res.json().then(e => Promise.reject(e))
-                return res.json()
-            })
-            .then(response =>
-                this.context.addQuestion(response),
-                console.log(ApiContext))
-            .then(
-                console.log(updatedBudget),
-                this.props.history.push('/mybudget')
-            )
-            .catch(error => {
-                console.log(error.message)
-            })
-    }
 
 
     render() {
         const budget_title = this.state.budget_title
         const money_available = this.state.money_available
+        const income = this.state.income
+
 
         let purchases = this.state.purchases.map((purchases, idx) => (
             <li className="purchase">
                 <form onSubmit={this.calculateDifference}>
                     <span><input defaultValue="" name="purchase_name" placeholder="purchase_name"></input></span>
                     <span><input defaultValue="0" name="price" className="price" placeholder="0.00"></input></span>
+                    <Link to="/budget/:id/purchases/:id"><button className="link" type="button">Edit</button></Link>
                     <button type="submit">Calculate</button>
                     <button onClick={this.handleClickDelete} className="close"> X </button>
                 </form>
@@ -347,8 +320,8 @@ export default class EditBudget extends Component {
                         <span>Available money:</span><span className="amount-left">$<span>{money_available}</span></span>
                     </div>
                     <form onSubmit={this.addIncome} className="income-container">
-                        <input className="income" name="income" placeholder="0.00"></input>
-                        <button type="submit">Add Income</button>
+                        <input className="income" name="income" placeholder={income}></input>
+                        <button type="submit" >Add Income</button>
                     </form>
                     <div className="subtraction-section">
                         <button onClick={this.addPurchase}>Add a purchases</button>
@@ -356,7 +329,6 @@ export default class EditBudget extends Component {
                             {purchases}
                         </ul>
                     </div>
-                    <button type="submit" onClick={this.saveBudget}>Save</button>
                 </section>
             </div >
         )

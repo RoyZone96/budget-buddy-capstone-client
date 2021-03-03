@@ -75,7 +75,7 @@ export default class AddBudget extends Component {
     render() {
         return (
             <section className="new">
-                <Link to="/myBudget">
+                <Link to="/mybudgets">
                     <button className="close">
                         X
                     </button>

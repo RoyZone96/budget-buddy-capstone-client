@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Error from './components/Error'
 import AddBudget from './components/AddBudget'
 import EditBudget from './routes/EditBudget'
+import EditPurchase from './routes/EditPurchase'
 import ApiContext from './utilities/ApiContext'
 import Support from './routes/Support'
 import LandingPage from './routes/LandingPage'
@@ -51,6 +52,7 @@ class App extends Component {
                 <Route path='/support' component={Support} />
                 <Route path='/newbudget' component={AddBudget} />
                 <Route path='/budget/:id' component={EditBudget} />
+                <Route path='/budget/:id/purchases/:id' component={EditPurchase}/>
                 <Route component={Error} />
               </Switch>
             </main>

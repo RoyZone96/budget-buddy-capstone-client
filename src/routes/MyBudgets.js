@@ -17,29 +17,45 @@ export default class MyBudgets extends Component {
     }
 
     componentDidMount() {
-        Promise.all([
-            fetch(`${config.API_ENDPOINT}/budgets`)
-        ])
-            .then(([boardsRes]) => {
-                if (!boardsRes.ok)
-                    return boardsRes.json().then(e => Promise.reject(e));
-                return Promise.all([boardsRes.json()]);
+        const user_id = TokenService.getUserId()
+        console.log(user_id)
+
+        let budgetUrl = `${config.API_ENDPOINT}/budgets`
+
+            console.log(budgetUrl)
+           
+            fetch(budgetUrl)
+            .then((budgetsRes) => {
+                if (!budgetsRes.ok)
+                    return budgetsRes.json().then(e => Promise.reject(e));
+                return budgetsRes.json();
             })
-            .then(([budgets]) => {
-                this.setState({ budgets });
+            .then((budgets) => {
+
                 console.log(budgets)
+                console.log(user_id)
+
+                let filteredBudgets = [];
+                for (let i = 0; i < budgets.length; i++) {
+                    if (budgets[i].user_id == user_id) {
+                        filteredBudgets.push(budgets[i]);
+                    }
+                }
+                this.setState({ budgets: filteredBudgets });
             })
             .catch(error => {
                 console.log({ error });
             });
     }
+
+
     handleAddBudget = (budgets) => {
         this.setState({
             budgets: [...this.state.budgets, budgets]
         })
     }
 
-    
+
 
 
 
@@ -50,7 +66,7 @@ export default class MyBudgets extends Component {
         //     return <p className="money_available under">{budgets.money_available}</p>
         // }
         // else
-        if(budgets.map == 0){}
+        if (budgets.map == 0) { }
         let budgetsOutput = budgets.map(budgets => {
             console.log(budgets)
             return (
@@ -59,7 +75,7 @@ export default class MyBudgets extends Component {
                         <div className="menu-wrapper">
                             <div>
                                 <p className="title">{budgets.budget_title}</p>
-                                <p className="money_available">{budgets.money_available}</p>
+                                <p className="money_available">${budgets.money_available}</p>
                                 <BudgetNav id={budgets.id} />
                             </div>
                         </div>
@@ -72,7 +88,9 @@ export default class MyBudgets extends Component {
                 <LogoutButton />
                 <div>
                     <Link to='/support'>
-                        support
+                        <button className="support" type="button">
+                            support
+                        </button>
                     </Link>
                 </div>
                 <section key={budgets.id} className="budget-list">

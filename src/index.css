@@ -193,6 +193,11 @@ border-right: 0;
 Content styles (Main Module)
 (all the styles inside the < sections > or < aside > tags)
 */
+
+li{
+  list-style: none;
+}
+
 section {
 width: 70%;
 margin: 30px auto;

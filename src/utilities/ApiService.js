@@ -1,19 +1,8 @@
 import config from '../config'
 
-const UsersApiService = {
-  getUsers() {
-    return fetch(`${config.API_ENDPOINT}/users`, {
-      headers: {
-      },
-    })
-      .then(res =>
-        (!res.ok)
-          ? res.json().then(e => Promise.reject(e))
-          : res.json()
-      )
-  },
-  getUser(usersId) {
-    return fetch(`${config.API_ENDPOINT}/users/${usersId}`, {
+const ApiService = {
+  getIncome(incomes_id) {
+    return fetch(`${config.API_ENDPOINT}/incomes/${incomes_id}`, {
       headers: {
       },
     })
@@ -53,5 +42,5 @@ const UsersApiService = {
   }
 }
 
-export default UsersApiService
+export default ApiService
 

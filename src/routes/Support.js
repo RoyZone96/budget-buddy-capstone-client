@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 export default function Support() {
     return (
         <div>
-            <Link to="/myBudget">
+            <Link to="/mybudgets">
                 <button className="back">
                      Back
                 </button>
