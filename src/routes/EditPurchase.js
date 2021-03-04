@@ -72,7 +72,7 @@ export default class EditPurchase extends Component {
   }
 
   setPurchaseName = event => {
-    event.preventDefault()
+    
     this.setState({
       purchase_name: {
         value: event.target.value,
@@ -82,7 +82,7 @@ export default class EditPurchase extends Component {
   }
 
   setPurchaseCost = event => {
-    event.preventDefault()
+    
     this.setState({
       purchase_cost: {
         value: event.target.value,
