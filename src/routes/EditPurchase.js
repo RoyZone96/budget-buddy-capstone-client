@@ -5,19 +5,18 @@ import TokenService from '../utilities/TokenService'
 
 export default class EditPurchase extends Component {
   state = {
-    purchases: [],
     purchase_name: {
-      value: "",
+      value: '',
       touched: false
     },
     purchase_cost: {
-      value: "",
+      value: 0,
       touched: false
     }
   }
 
   componentDidMount() {
-    const purchases_id = this.state.match.params.purchases_id
+    const purchases_id = this.props.match.params.purchase_id
 
     console.log(purchases_id)
 
@@ -76,7 +75,7 @@ export default class EditPurchase extends Component {
     event.preventDefault()
     this.setState({
       purchase_name: {
-        value: purchase_name,
+        value: event.target.value,
         touched: true
       }
     })
@@ -86,7 +85,7 @@ export default class EditPurchase extends Component {
     event.preventDefault()
     this.setState({
       purchase_cost: {
-        value: purchase_cost,
+        value: event.target.value,
         touched: true
       }
     })
@@ -104,8 +103,8 @@ export default class EditPurchase extends Component {
         <form className="new-budget" onSubmit={this.editBudget}>
           <p className="instructions"> Edit your purchase and click on the save when done. </p>
           <input
-            className="title"
-            placeholder="title" 
+            className="purchase_name"
+            placeholder="item" 
             type="text"
             name="purchase_name"
             onChange={event => this.setPurchaseName(event.target.value)} required />
@@ -115,7 +114,7 @@ export default class EditPurchase extends Component {
             name="purchase_cost"
             onChange={event => this.setPurchaseCost(event.target.value)} required />
           <div>
-            <button className="post-button" type="submit">Edit Purchase</button>
+            <button type="submit">Edit Purchase</button>
           </div>
         </form>
       </section>

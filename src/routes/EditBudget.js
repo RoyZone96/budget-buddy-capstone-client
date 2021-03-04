@@ -53,27 +53,8 @@ export default class EditBudget extends Component {
             })
             .catch(error => console.log({ error }))
 
-
-        // let incomeUrl = `${config.API_ENDPOINT}/incomes/${incomes_id}`
-
-        // fetch(incomeUrl)
-        //     .then(res => {
-        //         if (!res.ok)
-        //             return res.json().then(e => Promise.reject(e))
-        //         return res.json()
-        //     })
-        //     .then((res) => {
-        //         console.log(res)
-        //         this.setState({
-        //             income: res.income
-        //         })
-        //         console.log(this.state)
-        //     })
-        //     .catch(error => console.log({ error }))
-
-
+        
         let purchasesUrl = `${config.API_ENDPOINT}/purchases`
-
         
         fetch(purchasesUrl)
             .then((purchasesRes) => {
@@ -292,14 +273,16 @@ export default class EditBudget extends Component {
         const budget_title = this.state.budget_title
         const money_available = this.state.money_available
         const income = this.state.income
+        const currentBudgetId = this.props.match.params.id
 
+        let purchaseOutput = `budget/${currentBudgetId}purchases/:id`
 
         let purchases = this.state.purchases.map((purchases, idx) => (
             <li className="purchase">
                 <form onSubmit={this.calculateDifference}>
                     <span><input defaultValue="" name="purchase_name" placeholder="purchase_name"></input></span>
                     <span><input defaultValue="0" name="price" className="price" placeholder="0.00"></input></span>
-                    <Link to="/budget/:id/purchases/:id"><button className="link" type="button">Edit</button></Link>
+                    <Link to={purchaseOutput}><button className="link" type="button">Edit</button></Link>
                     <button type="submit">Calculate</button>
                     <button onClick={this.handleClickDelete} className="close"> X </button>
                 </form>

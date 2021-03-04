@@ -85,11 +85,11 @@ export default class AddBudget extends Component {
                     <input
                         className="title"
                         placeholder="title" type="text"
-                        onChange={event => this.setBudgetTitle(event.target.value)} required />
+                        onChange={this.setBudgetTitle} required />
                     <span>$</span>
                     <input className="money"
                         placeholder="0"
-                        onChange={event => this.setTargetAmount(event.target.value)} required />
+                        onChange={this.setTargetAmount} required />
                     <div>
                         <button className="post-button" type="submit">Publish Budget</button>
                     </div>

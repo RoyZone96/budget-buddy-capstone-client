@@ -51,8 +51,8 @@ class App extends Component {
                 <Route path='/mybudgets' component={MyBudgets} />
                 <Route path='/support' component={Support} />
                 <Route path='/newbudget' component={AddBudget} />
-                <Route path='/budget/:id' component={EditBudget} />
-                <Route path='/budget/:id/purchases/:id' component={EditPurchase}/>
+                <Route path='/budget/:id/' component={EditBudget} />
+                <Route path='/purchases/:purchase_id' component={EditPurchase}/>
                 <Route component={Error} />
               </Switch>
             </main>
