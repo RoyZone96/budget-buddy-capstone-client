@@ -41,11 +41,14 @@ export default class EditPurchase extends Component {
 
   editBudget = (event) => {
     event.preventDefault()
+    console.log("triggered")
+
     const purchase_id = this.props.match.params.purchase_id
 
+
     const updatedPurchase = {
-      purchase_name: this.state.purchase_name,
-      purchase_cost: this.state.purchase_cost
+      purchase_name: this.state.purchase_name.value,
+      purchase_cost: this.state.purchase_cost.value
     }
 
     fetch(`${config.API_ENDPOINT}/purchases/${purchase_id}`,
@@ -61,8 +64,8 @@ export default class EditPurchase extends Component {
       })
       .then(response => {
         this.setState({
-          purchase_name: response.purchase_name,
-          money_available: response.money_available
+          purchase_name: response.purchase_name.value,
+          purchase_cost: response.purchase_cost.value
         })
         console.log(updatedPurchase)
       })
@@ -71,21 +74,20 @@ export default class EditPurchase extends Component {
       })
   }
 
-  setPurchaseName = event => {
-    
+  setPurchaseName = (purchase_name) => {
+
     this.setState({
       purchase_name: {
-        value: event.target.value,
+        value: purchase_name,
         touched: true
       }
     })
   }
 
-  setPurchaseCost = event => {
-    
+  setPurchaseCost = (purchase_cost) => {
     this.setState({
       purchase_cost: {
-        value: event.target.value,
+        value: purchase_cost,
         touched: true
       }
     })
@@ -104,7 +106,7 @@ export default class EditPurchase extends Component {
           <p className="instructions"> Edit your purchase and click on the save when done. </p>
           <input
             className="purchase_name"
-            placeholder="item" 
+            placeholder="item"
             type="text"
             name="purchase_name"
             onChange={event => this.setPurchaseName(event.target.value)} required />
