@@ -45,6 +45,7 @@ class App extends Component {
             <Header />
             <main className='App'>
               <Switch>
+              
                 <Route exact path="/" component={LandingPage} />
                 <Route path='/login' component={LoginForm} />
                 <Route path='/registration' component={RegistrationForm} />

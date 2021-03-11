@@ -1,8 +1,8 @@
 import config from '../config'
 
 const ApiService = {
-  getIncome(incomes_id) {
-    return fetch(`${config.API_ENDPOINT}/incomes/${incomes_id}`, {
+  getPurchase(purchases_id) {
+    return fetch(`${config.API_ENDPOINT}/purchases/${purchases_id}`, {
       headers: {
       },
     })

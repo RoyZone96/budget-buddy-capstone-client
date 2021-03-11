@@ -78,14 +78,10 @@ export default class BudgetNav extends Component {
   render() {
     return (
       <div className='boardNav'>
-        <div className="button-spacer">
-          <Link to={`/budget/${this.props.id}`}>
-            <button type="button"> EDIT </button>
-          </Link>
-        </div>
-        <div className="button-spacer">
-          <button type="button" onClick={this.handleClickDelete}> DELETE </button>
-        </div>
+        <Link to={`/budget/${this.props.id}`}>
+          <button type="button"> EDIT </button>
+        </Link>
+        <button type="button" className="delete" onClick={this.handleClickDelete}> DELETE </button>
       </div>
     )
   }

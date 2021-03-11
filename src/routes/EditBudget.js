@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import config from '../config'
 import ApiContext from '../utilities/ApiContext'
+import ApiService from '../utilities/ApiService';
 
 
 
@@ -53,9 +54,9 @@ export default class EditBudget extends Component {
             })
             .catch(error => console.log({ error }))
 
-        
+
         let purchasesUrl = `${config.API_ENDPOINT}/purchases`
-        
+
         fetch(purchasesUrl)
             .then((purchasesRes) => {
                 console.log(purchasesRes)
@@ -87,6 +88,7 @@ export default class EditBudget extends Component {
     addIncome = (event) => {
         event.preventDefault();
         const userData = {}
+        const budget_id = this.props.match.params.id
 
         //get all the from data from the form component
         const formData = new FormData(event.target)
@@ -102,7 +104,7 @@ export default class EditBudget extends Component {
         console.log(y)
 
         this.addMoney(parseInt(x), parseInt(y))
-        
+        this.props.history.push(`/budget/${budget_id}`)
 
 
         console.log('triggered')
@@ -147,9 +149,10 @@ export default class EditBudget extends Component {
         }
 
         console.log(updatedBudget)
-        console.log(budget_id)
+
 
         const budget_id = this.props.match.params.id
+        console.log(budget_id)
 
         fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
             {
@@ -218,32 +221,28 @@ export default class EditBudget extends Component {
 
     calculateDifference = (event) => {
         event.preventDefault();
-        const userData = {}
-
-        //get all the from data from the form component
-        const formData = new FormData(event.target)
-
-        //for each of the keys in form data populate it with form value
-        for (let value of formData) {
-            userData[value[0]] = value[1]
-        }
-        console.log(userData)
         console.log("triggered")
 
-        let x = this.state.money_available
+        const budget_id = this.props.match.params.id
+
+        let x = event.target.money_available.value
         console.log(x)
-        let y = userData.purchase_cost
+        let y = event.target.purchase_cost.value
         console.log(y)
 
         this.subtractMoney(parseInt(x), parseInt(y))
+        this.props.history.push(`/budget/${budget_id}`)
     }
 
 
     handleClickDelete = e => {
         e.preventDefault()
-        const { id } = this.props;
+        let purchases_id = e.target.purchase_id.value
+        let delete_money_available = e.target.delete_money_available.value
+        let delete_purchase_cost = e.target.delete_purchase_cost.value
+        console.log(purchases_id, delete_money_available, delete_purchase_cost)
 
-        fetch(`${config.API_ENDPOINT}/purchases/${id}`, {
+        fetch(`${config.API_ENDPOINT}/purchases/${purchases_id}`, {
             method: 'DELETE',
             headers: {
                 'content-type': 'application/json'
@@ -255,11 +254,9 @@ export default class EditBudget extends Component {
                 return res
             })
             .then(() => {
-                this.props.onDeletePurchase(id)
-                // let x = this.state.money_available
-                // let y = purchase_cost
+                this.props.onDeletePurchase(purchases_id)
 
-                // this.addMoney(parseInt(x), parseInt(y))
+                this.addMoney(parseInt(delete_money_available), parseInt(delete_purchase_cost))
             })
             .catch(error => {
                 console.error({ error })
@@ -273,47 +270,66 @@ export default class EditBudget extends Component {
         const budget_title = this.state.budget_title
         const money_available = this.state.money_available
         const income = this.state.income
+        const purchases_id = this.state.purchases.id
+        console.log(purchases_id)
         const currentBudgetId = this.props.match.params.id
 
-        let purchaseOutput = `budget/${currentBudgetId}purchases/:id`
 
-        let purchases = this.state.purchases.map((purchases, idx) => (
-            <li className="purchase">
-                <form onSubmit={this.calculateDifference}>
-                    <span><input defaultValue="" name="purchase_name" placeholder="purchase_name"></input></span>
-                    <span><input defaultValue="0" name="price" className="price" placeholder="0.00"></input></span>
-                    <Link to={purchaseOutput}><button className="link" type="button">Edit</button></Link>
-                    <button type="submit">Calculate</button>
-                    <button onClick={this.handleClickDelete} className="close"> X </button>
-                </form>
-            </li>
-        ))
-        return (
-            <div>
-                <section>
-                    <div className="back">
-                        <Link to="/mybudgets">
-                            <button className="close">
-                                Back
-              </button>
-                        </Link>
-                    </div>
-                    <div className="available">
-                        <h1> {budget_title} </h1>
-                        <span>Available money:</span><span className="amount-left">$<span>{money_available}</span></span>
-                    </div>
-                    <form onSubmit={this.addIncome} className="income-container">
-                        <input className="income" name="income" placeholder={income}></input>
-                        <button type="submit" >Add Income</button>
+        console.log(this.state.purchases)
+        let purchases = this.state.purchases.map((purchase, idx) => {
+            let purchaseOutput = `/purchases/${purchase.id}`
+            console.log(purchaseOutput)
+            return (
+                <li className="purchase">
+
+                    <form onSubmit={this.handleClickDelete}>
+                        <button type="submit" className="delete"> X </button>
+                        <input type='hidden' name='purchase_id' defaultValue={purchase.id}></input>
+                        <input type='hidden' name='delete_purchase_cost' defaultValue={purchase.purchase_cost}></input>
+                        <input type='hidden' name='delete_money_available' defaultValue={money_available}></input>
                     </form>
-                    <div className="subtraction-section">
-                        <button onClick={this.addPurchase}>Add a purchases</button>
-                        <ul>
-                            {purchases}
-                        </ul>
+                    <span className="purchase_name">{purchase.purchase_name}</span>
+                    <span className="purchase_cost">$<span>{purchase.purchase_cost}</span></span>
+                    <div className="purchase-menu">
+                        <Link to={purchaseOutput}><button className="link" type="button">Edit</button></Link>
+                        <form onSubmit={this.calculateDifference}>
+                            <button type="submit">Calculate</button>
+                            <input type='hidden' name='purchase_cost' defaultValue={purchase.purchase_cost}></input>
+                            <input type='hidden' name='money_available' defaultValue={money_available}></input>
+                        </form>
+
                     </div>
-                </section>
-            </div >
+
+                </li>
+            )
+        }
+        )
+        return (
+
+            <section id="edit">
+                <div className="back clearfix">
+                    <Link to="/mybudgets">
+                        <button className="close">
+                            Back
+              </button>
+                    </Link>
+                </div>
+                <div className="available">
+                    <h1 className="budget_title"> {budget_title} </h1>
+                    <span className="amount-left">Available money:</span><span>$<span>{money_available}</span></span>
+                </div>
+                <form onSubmit={this.addIncome} className="income-container">
+                    <span>$</span><input className="income" name="income" placeholder={income}></input>
+                    <button type="submit" >Add Income</button>
+                </form>
+                <div className="subtraction-section">
+                    <button onClick={this.addPurchase}>Add a purchases</button>
+                    <ul>
+                        {purchases}
+                    </ul>
+                </div>
+            </section>
+
         )
     }
 }

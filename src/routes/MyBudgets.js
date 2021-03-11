@@ -22,9 +22,9 @@ export default class MyBudgets extends Component {
 
         let budgetUrl = `${config.API_ENDPOINT}/budgets`
 
-            console.log(budgetUrl)
-           
-            fetch(budgetUrl)
+        console.log(budgetUrl)
+
+        fetch(budgetUrl)
             .then((budgetsRes) => {
                 if (!budgetsRes.ok)
                     return budgetsRes.json().then(e => Promise.reject(e));
@@ -62,6 +62,7 @@ export default class MyBudgets extends Component {
     render() {
         const budgets = this.state.budgets
         console.log(budgets)
+        let money_available = this.state.budgets.money_available
         // if(money_available <= 0){
         //     return <p className="money_available under">{budgets.money_available}</p>
         // }
@@ -69,6 +70,19 @@ export default class MyBudgets extends Component {
         if (budgets.map == 0) { }
         let budgetsOutput = budgets.map(budgets => {
             console.log(budgets)
+            if (money_available <= 0) {
+                <ul className="under">
+                    <li className="menu-select">
+                        <div className="menu-wrapper">
+                            <div>
+                                <p className="title">{budgets.budget_title}</p>
+                                <p className="money_available">${budgets.money_available}</p>
+                                <BudgetNav id={budgets.id} />
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            }
             return (
                 <ul>
                     <li className="menu-select">
@@ -84,22 +98,22 @@ export default class MyBudgets extends Component {
             )
         })
         return (
-            <div>
-                <LogoutButton />
-                <div>
+            <div> 
+                <div className="top_menu">
+                    <LogoutButton />
                     <Link to='/support'>
                         <button className="support" type="button">
-                            support
+                            Support
                         </button>
                     </Link>
                 </div>
-                <section key={budgets.id} className="budget-list">
-                    {budgetsOutput}
-                </section>
                 <section className="new-wrapper">
                     <Link to="/newbudget">
                         <button className="new-board" type="button">NEW BUDGET +</button>
                     </Link>
+                </section>
+                <section key={budgets.id} className="budget-list">
+                    {budgetsOutput}
                 </section>
             </div>
         )

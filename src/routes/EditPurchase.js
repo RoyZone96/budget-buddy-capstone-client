@@ -13,6 +13,7 @@ export default class EditPurchase extends Component {
       value: 0,
       touched: false
     }
+
   }
 
   componentDidMount() {
@@ -38,6 +39,8 @@ export default class EditPurchase extends Component {
         console.log({ error });
       });
   }
+
+ 
 
   editBudget = (event) => {
     event.preventDefault()
@@ -95,18 +98,19 @@ export default class EditPurchase extends Component {
 
 
   render() {
+  
+  
+
     return (
       <section className="new">
-        <Link to="/budget/:id">
-          <button className="close">
-            X
-          </button>
-        </Link>
+  
+        
+  
         <form className="new-budget" onSubmit={this.editBudget}>
           <p className="instructions"> Edit your purchase and click on the save when done. </p>
           <input
             className="purchase_name"
-            placeholder="item"
+            placeholder="New name"
             type="text"
             name="purchase_name"
             onChange={event => this.setPurchaseName(event.target.value)} required />

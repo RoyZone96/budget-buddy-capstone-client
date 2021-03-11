@@ -50,6 +50,11 @@ General styles (General Module, wrapping around the modules below)
 */
 
 body {
+  background: rgba(0, 0, 0, 0) url("./images/bank_drawers.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 font-family: sans-serif;
 font-size: 20px;
 color: rgb(0, 0, 0);
@@ -58,6 +63,12 @@ text-align: center;
 line-height: 1.5;
 height: auto;
 border: 3px solid white;
+}
+
+.clearfix::after{
+  content: "";
+  clear: both;
+  display: table;
 }
 
 a {
@@ -77,6 +88,11 @@ h6 {
   font-family: cursive;
 }
 
+h1{
+  font-size: 50px;
+  color:green;
+}
+
 h2 {
   color: #0E4EB4;
 }
@@ -88,31 +104,37 @@ button {
   padding: 10px 25px;
   margin: 5px;
   border-radius: 15px;
-  color: orange;
+  color: green;
 }
 
 button {
-  background-color: transparent;
-  border: 2px solid #6D7296;
+  background-color: black;
+  border: 2px solid green;
 }
 
 button:hover {
-  background-color: #EFC43F;
+  background-color: green;
   color: black;
+  border: 2px solid black;
 }
 
-button[type=submit] {
-  background-color: transparent;
+
+/* button[type=submit] {
+  background-color: gold;
   border: 2px solid #C01C17;
 }
 
 button[type=submit]:hover {
   color: #C01C17;
-}
+} */
 
 label {
   display: block;
   margin: 10px;
+}
+
+.App{
+  background-color: grey transparent;
 }
 
 /*
@@ -189,6 +211,14 @@ header nav ul.nav-items li:last-child {
 border-right: 0;
 }
 
+.top_menu{
+  margin-bottom: 30px;
+  text-align: left;
+  background-color: black;
+}
+
+
+
 /* -------------------------------------
 Content styles (Main Module)
 (all the styles inside the < sections > or < aside > tags)
@@ -204,7 +234,7 @@ margin: 30px auto;
 padding-top: 20px;
 padding-bottom: 20px;
 border-bottom: 2px solid green;
-text-align: left;
+text-align: center;
 font-family: "Roboto", serif;
 }
 
@@ -241,15 +271,102 @@ section.projects div.project-container div.project-column img {
 width: 100%;
 }
 
+.new{
+  background-color: gray ;
+}
+
+
+.back{
+  text-align: left;
+}
+
+.delete{
+  text-align: left;
+}
+
+.delete:hover{
+  background-color: red;
+  border: 2px solid black;
+}
+
+.menu-wrapper{
+  background: rgba(0, 0, 0, 0) url("./images/dollar_background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#edit{
+  background-color: gray;
+  opacity: 80%;
+}
+
+.title{
+  font-size: 25px;
+  margin-right: 30px;
+}
+
+.under{
+  color: red
+}
+
+.money{
+  width: 115px;
+  text-align: right;
+}
+
+.budget_title{
+  padding-top: 50px;
+  font-size: 40px
+}
+
+.income-container{
+  padding-bottom: 30px;
+}
+
+.income{
+  width: 115px;
+  text-align: right;
+}
+
+.purchase{
+  background-color: gold;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.purchase .delete{
+float: left;
+}
+
+
+
+.purchase_name{
+  font-size: 25px;
+  padding-right: 30px;
+}
+
+.purchase_cost{
+  font-size: 25px;
+  padding-right: 30px;
+}
+
+.purchase-menu{
+display: inline-flex;
+}
+
+
 /* -------------------------------------
 Footer styles (Main Module)
 (all the styles inside the < footer > tag)
 */
 
-footer {
+.footer {
 margin-top: 50px;
 margin-bottom: 15px;
 border: 0px;
+background-color: black;
 }
 
 footer a {

@@ -75,11 +75,13 @@ export default class AddBudget extends Component {
     render() {
         return (
             <section className="new">
+                <div className="close">
                 <Link to="/mybudgets">
-                    <button className="close">
+                    <button className="delete">
                         X
                     </button>
                 </Link>
+                </div>
                 <form className="new-budget" onSubmit={this.handleBudgetCreate}>
                     <p className="instructions"> Enter amount you have available </p>
                     <input
