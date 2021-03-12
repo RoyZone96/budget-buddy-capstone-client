@@ -114,10 +114,10 @@ export default class RegistrationForm extends Component {
 
     render() {
         return (
-            <div className="wrapper">
-                <form className="registration" onSubmit={this.handleSubmit}>
+            <div className="registration">
+                <form  onSubmit={this.handleSubmit}>
                     <div className="spacer">
-                        <label htmlFor="username"> username </label>
+                        <label htmlFor="username"> Username </label>
                         <input type="text" className="username" name="username" required />
                     </div>
                     <div className="spacer">

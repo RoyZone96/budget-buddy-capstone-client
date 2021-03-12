@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 export default function LandingPage() {
     return (
         <div className="wrapper">
-            <h1 className="app-title">Budget Buddy</h1>
             <div>
                 <h2>A better way to plan your daily shopping, traveling or hobbyist needs</h2>
             </div>

@@ -64,6 +64,7 @@ export default class LoginForm extends Component {
       })
       .catch(err => {
         console.log(err);
+        alert(err)
       });
   }
 
@@ -71,7 +72,7 @@ export default class LoginForm extends Component {
   render() {
     const { error } = this.state
     return (
-      <div className="wrapper">
+      <div className="login">
         <form onSubmit={this.handleSubmitJwtAuth}>
           <div className="spacer">
             <label htmlFor="username"> Username </label>

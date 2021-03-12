@@ -91,6 +91,7 @@ h6 {
 h1{
   font-size: 50px;
   color:green;
+  background-color: gainsboro;
 }
 
 h2 {
@@ -226,6 +227,7 @@ Content styles (Main Module)
 
 li{
   list-style: none;
+  margin-bottom: 20px;
 }
 
 section {
@@ -273,6 +275,7 @@ width: 100%;
 
 .new{
   background-color: gray ;
+  margin-top: 200px;
 }
 
 
@@ -290,21 +293,60 @@ width: 100%;
 }
 
 .menu-wrapper{
-  background: rgba(0, 0, 0, 0) url("./images/dollar_background.jpg") no-repeat center center fixed;
+  background: rgba(0, 0, 0, 0) url("./images/dollar_background.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 }
 
+.wrapper {
+  margin: 30px;
+  width: 500px;
+  height: 200px;
+  text-align: center;
+  margin-top: 120px;
+  border: 2pt solid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: gainsboro;
+}
+
+.login {
+  margin: 30px;
+  width: 500px;
+  height: 300px;
+  text-align: center;
+  margin-top: 120px;
+  border: 2pt solid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: gainsboro;
+}
+
+.registration{
+  margin: 30px;
+  width: 500px;
+  height: 500px;
+  text-align: center;
+  margin-top: 120px;
+  border: 2pt solid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: gainsboro;
+}
+
+
 #edit{
-  background-color: gray;
-  opacity: 80%;
+  background-color: gainsboro;
 }
 
 .title{
   font-size: 25px;
-  margin-right: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: gainsboro;
+  width: 110px;
 }
 
 .under{
@@ -330,6 +372,12 @@ width: 100%;
   text-align: right;
 }
 
+
+.spacer{
+  display: inline-flex;
+  margin: 15px;
+}
+
 .purchase{
   background-color: gold;
   margin-top: 15px;
@@ -340,7 +388,10 @@ width: 100%;
 float: left;
 }
 
-
+.button-spacer {
+  display: inline-flex;
+  margin: 5px;
+}
 
 .purchase_name{
   font-size: 25px;
@@ -356,6 +407,22 @@ float: left;
 display: inline-flex;
 }
 
+.support {
+  margin: 30px;
+  width: 550px;
+  height: 550px;
+  text-align: center;
+  margin-top: 120px;
+  border: 2pt solid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: gainsboro;
+}
+
+.content {
+  width: 450px;
+  height: 250px;
+}
 
 /* -------------------------------------
 Footer styles (Main Module)
@@ -363,8 +430,8 @@ Footer styles (Main Module)
 */
 
 .footer {
-margin-top: 50px;
-margin-bottom: 15px;
+margin-top: 500px;
+
 border: 0px;
 background-color: black;
 }

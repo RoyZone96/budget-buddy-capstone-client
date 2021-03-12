@@ -102,7 +102,7 @@ export default class MyBudgets extends Component {
                 <div className="top_menu">
                     <LogoutButton />
                     <Link to='/support'>
-                        <button className="support" type="button">
+                        <button type="button">
                             Support
                         </button>
                     </Link>
