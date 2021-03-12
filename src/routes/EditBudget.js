@@ -212,6 +212,7 @@ export default class EditBudget extends Component {
                     purchase_name: this.state.purchase.purchase_name,
                     purchase_cost: this.state.purchase.purchase_cost
                 })
+                this.props.history.push(`/budget/${budget_id}`)
             })
             .catch(error => {
                 console.log(error.message)
@@ -237,6 +238,7 @@ export default class EditBudget extends Component {
 
     handleClickDelete = e => {
         e.preventDefault()
+        const budget_id = this.props.match.params.id
         let purchases_id = e.target.purchase_id.value
         let delete_money_available = e.target.delete_money_available.value
         let delete_purchase_cost = e.target.delete_purchase_cost.value
@@ -255,8 +257,8 @@ export default class EditBudget extends Component {
             })
             .then(() => {
                 this.props.onDeletePurchase(purchases_id)
-
                 this.addMoney(parseInt(delete_money_available), parseInt(delete_purchase_cost))
+                this.props.history.push(`/budget/${budget_id}`)
             })
             .catch(error => {
                 console.error({ error })

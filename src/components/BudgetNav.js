@@ -68,6 +68,7 @@ export default class BudgetNav extends Component {
       .then(() => {
         this.context.deleteBudget(id)
         this.props.onDeleteBudget(id)
+        this.props.history.push(`/mybudgets`)
       })
       .catch(error => {
         console.error({ error })

@@ -71,6 +71,7 @@ export default class EditPurchase extends Component {
           purchase_cost: response.purchase_cost.value
         })
         console.log(updatedPurchase)
+        
       })
       .catch(error => {
         console.log(error.message)
