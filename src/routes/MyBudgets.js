@@ -63,10 +63,6 @@ export default class MyBudgets extends Component {
         const budgets = this.state.budgets
         console.log(budgets)
         let money_available = this.state.budgets.money_available
-        // if(money_available <= 0){
-        //     return <p className="money_available under">{budgets.money_available}</p>
-        // }
-        // else
         if (budgets.map == 0) { }
         let budgetsOutput = budgets.map(budgets => {
             console.log(budgets)
@@ -76,7 +72,7 @@ export default class MyBudgets extends Component {
                         <div className="menu-wrapper">
                             <div>
                                 <p className="title">{budgets.budget_title}</p>
-                                <p className="money_available">${budgets.money_available}</p>
+                                <p className="money_available">{budgets.money_available}</p>
                                 <BudgetNav id={budgets.id} />
                             </div>
                         </div>
@@ -89,7 +85,7 @@ export default class MyBudgets extends Component {
                         <div className="menu-wrapper">
                             <div>
                                 <p className="title">{budgets.budget_title}</p>
-                                <p className="money_available">${budgets.money_available}</p>
+                                <p className="money_available">{budgets.money_available}</p>
                                 <BudgetNav id={budgets.id} />
                             </div>
                         </div>

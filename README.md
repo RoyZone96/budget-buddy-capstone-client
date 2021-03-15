@@ -2,7 +2,7 @@
 A better way to plan your daily shopping or hobbyist needs
 
 ## Working Prototype???
-You can access a working prototype of the React app here: https://your-app-client.herokuapp.com/ and Node app here: https://your-app-server.herokuapp.com/
+You can access a working prototype of the React app here: https://budget-buddy-capstone-client.vercel.app/ and Node app here: https://budget-buddy-capstone-server.herokuapp.com/
 
 
 ## User Stories

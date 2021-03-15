@@ -449,49 +449,6 @@ color: #081e6f;
 }
 
 
-/*large desktop*/
-@media only screen and (max-width: 1600px) {
-  body {
-      border: 3px solid yellow;
-  }
-}
-
-/*iPad lanscape / small laptop*/
-@media only screen and (max-width: 1024px) {
-  body {
-      border: 3px solid blue;
-  }
-}
-
-/*iPad potrait*/
-@media only screen and (max-width: 768px) {
-  body {
-      border: 3px solid red;
-  }
-}
-
-/*Android landscape*/
-@media only screen and (max-width: 640px) {
-  body {
-      border: 3px solid pink;
-  }
-}
-
-/*iPhone landscape*/
-@media only screen and (max-width: 480px) {
-  body {
-      border: 3px solid green;
-  }
-}
-
-/*iPhone portrait*/
-@media only screen and (max-width: 320px) {
-  body {
-      border: 3px solid purple;
-  }
-}
-
-
 
 /* mobile first approach = (the website was built initialy for mobiles and it will be adapted for desktop)
 This is the ideal way to built websites because it is much easier to adapt from a small screen and low computing power (mobiles) to a large screen and high computing power (desktops)
@@ -509,6 +466,300 @@ This is the ideal way to built websites because it is much easier to adapt from 
 @media only screen and (min-width: 480px) {
   body {
       border: 3px solid green;
+  }
+
+   /* -------------------------------------
+Header styles (Main Module)
+(all the styles inside the < header > or < nav > tags)
+*/
+header {
+  height: 700px;
+  width: 100%;
+  display: block;
+  position: relative;
+  padding-top: 20px;
+  margin-top: 0;
+  text-align: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  }
+  
+  header h1 {
+  color: white;
+  margin-top: 10%;
+  font-size: 214%;
+  }
+  
+  header nav {
+  position: fixed;
+  display: block;
+  width: 100%;
+  top: 0;
+  text-align: left;
+  }
+  
+  header nav ul.nav-items,
+  header nav div.logo {
+  display: inline-block;
+  width: auto;
+  }
+  
+  header nav div.logo {
+  padding: 0px 20px;
+  color: #163a8b;
+  font-family: "Caveat", cursive;
+  font-size: 155%;
+  }
+  
+  header nav ul.nav-items {
+  list-style-type: none;
+  float: right;
+  }
+  
+  header nav ul.nav-items li {
+  display: inline-block;
+  width: auto;
+  padding: 10px 20px;
+  border-right: 2px solid #ddd;
+  }
+  
+  header nav ul.nav-items li:last-child {
+  border-right: 0;
+  }
+  
+  .top_menu{
+    margin-bottom: 30px;
+    text-align: left;
+    background-color: black;
+  }
+  
+  
+  
+  /* -------------------------------------
+  Content styles (Main Module)
+  (all the styles inside the < sections > or < aside > tags)
+  */
+  
+  li{
+    list-style: none;
+    margin-bottom: 20px;
+  }
+  
+  section {
+  width: 70%;
+  margin: 30px auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid green;
+  text-align: center;
+  font-family: "Roboto", serif;
+  }
+  
+  section.projects {
+  display: block;
+  }
+  
+  section.projects div.project-container {
+  margin-bottom: 5%;
+  margin-top: 2%;
+  border-bottom: 1px solid #ccc;
+  }
+  
+  section.projects div.project-container:last-child {
+  border-bottom: 0;
+  }
+  
+  section.projects div.project-container h4 {
+  margin-bottom: 15px;
+  font-size: 120%;
+  }
+  
+  section.projects div.project-container div.project-column {
+  display: inline-block;
+  width: 48%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  margin-bottom: 1rem;
+  vertical-align: top;
+  padding-left: 20px;
+  }
+  
+  section.projects div.project-container div.project-column img {
+  width: 100%;
+  }
+  
+  .new{
+    background-color: gray ;
+    margin-top: 200px;
+  }
+  
+  
+  .back{
+    text-align: left;
+  }
+  
+  .delete{
+    text-align: left;
+  }
+  
+  .delete:hover{
+    background-color: red;
+    border: 2px solid black;
+  }
+  
+  .menu-wrapper{
+    background: rgba(0, 0, 0, 0) url("./images/dollar_background.jpg") no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  
+  .wrapper {
+    margin: 30px;
+    width: 500px;
+    height: 200px;
+    text-align: center;
+    margin-top: 120px;
+    border: 2pt solid;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+  }
+  
+  .login {
+    margin: 30px;
+    width: 500px;
+    height: 300px;
+    text-align: center;
+    margin-top: 120px;
+    border: 2pt solid;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+  }
+  
+  .registration{
+    margin: 30px;
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    margin-top: 120px;
+    border: 2pt solid;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+  }
+  
+  
+  #edit{
+    background-color: gainsboro;
+  }
+  
+  .title{
+    font-size: 25px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: gainsboro;
+    width: 110px;
+  }
+  
+  .under{
+    color: red
+  }
+  
+  .money{
+    width: 115px;
+    text-align: right;
+  }
+  
+  .budget_title{
+    padding-top: 50px;
+    font-size: 40px
+  }
+  
+  .income-container{
+    padding-bottom: 30px;
+  }
+  
+  .income{
+    width: 115px;
+    text-align: right;
+  }
+  
+  
+  .spacer{
+    display: inline-flex;
+    margin: 15px;
+  }
+  
+  .purchase{
+    background-color: gold;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .purchase .delete{
+  float: left;
+  }
+  
+  .button-spacer {
+    display: inline-flex;
+    margin: 5px;
+  }
+  
+  .purchase_name{
+    font-size: 25px;
+    padding-right: 30px;
+  }
+  
+  .purchase_cost{
+    font-size: 25px;
+    padding-right: 30px;
+  }
+  
+  .purchase-menu{
+  display: inline-flex;
+  }
+  
+  .support {
+    margin: 30px;
+    width: 550px;
+    height: 550px;
+    text-align: center;
+    margin-top: 120px;
+    border: 2pt solid;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: gainsboro;
+  }
+  
+  .content {
+    width: 450px;
+    height: 250px;
+  }
+  
+  /* -------------------------------------
+  Footer styles (Main Module)
+  (all the styles inside the < footer > tag)
+  */
+  
+  .footer {
+  background-color: black;
+  }
+  
+  footer a {
+  display: block;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  color: #163a8b;
+  }
+  
+  footer a:hover {
+  color: #081e6f;
   }
 }
 

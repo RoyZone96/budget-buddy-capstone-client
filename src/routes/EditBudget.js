@@ -291,7 +291,7 @@ export default class EditBudget extends Component {
                         <input type='hidden' name='delete_money_available' defaultValue={money_available}></input>
                     </form>
                     <span className="purchase_name">{purchase.purchase_name}</span>
-                    <span className="purchase_cost">$<span>{purchase.purchase_cost}</span></span>
+                    <span className="purchase_cost"><span>{purchase.purchase_cost}</span></span>
                     <div className="purchase-menu">
                         <Link to={purchaseOutput}><button className="link" type="button">Edit</button></Link>
                         <form onSubmit={this.calculateDifference}>
@@ -318,7 +318,7 @@ export default class EditBudget extends Component {
                 </div>
                 <div className="available">
                     <h1 className="budget_title"> {budget_title} </h1>
-                    <span className="amount-left">Available money:</span><span>$<span>{money_available}</span></span>
+                    <span className="amount-left">Available money:</span><span>{money_available}</span>
                 </div>
                 <form onSubmit={this.addIncome} className="income-container">
                     <span>$</span><input className="income" name="income" placeholder={income}></input>
