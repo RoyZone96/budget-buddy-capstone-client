@@ -61,11 +61,27 @@ Support Page
 ![Support Page](/github-images/Wireframes/support.png)
 
 ## Screenshots???
-Landing/Login Page
+Landing
 :-------------------------:
-![Landing Page](/github-images/screenshots/login-page-screenshot.png)
+![Landing Page](/github-images/Screenshots/landing.png)
 Landing/Register Page
-![Register Page](/github-images/screenshots/login-page-screenshot.png)
+![Register Page](/github-images/Screenshots/registration.png)
+Landing/Login Page
+![Login Page](/github-image/Screenshots/login.png)
+
+Main Page
+:--------------------------:
+![Home Page](/github-images/Screenshots/homepage.png)
+Add Budget Page
+![Add Budget](/github-images/Screenshots/add_budget.png)
+Edit Budget Page
+![Edit Budget](/github-images/Screenshots/edit_budget.png)
+Edit Purchase Page
+![Edit Purchase](/github-images/Screenshots/edit_purchases.png)
+
+Support Page
+:--------------------------:
+![Support Page](/github-images/Screenshots/support.png)
 
 ## Functionality
 The app's functionality includes:
@@ -91,7 +107,8 @@ The app's functionality includes:
                 *__NewBudget.js__(stateful)
             * __BudgetList.js__(stateless)
                 * __Budget.js__(stateless)
-                * __EditBudget.js__(stateless)
+                * __EditBudget.js__(stateful)
+                    *__EditPurchase.js__(stateful)
             * __Support.js__(stateless) -
                 * __SupportForm.js__(stateful)
 
@@ -114,7 +131,22 @@ The app's functionality includes:
     * content
 ## API Documentation???
 API Documentation details:
-* get all users
+```text
+    /api
+    .
+    ├── /auth
+    │   └── POST
+    │       ├── /login
+    ├── /users
+    │   └── POST
+    │       └── /
+    |__ /budgets
+    |   └──POST
+    |       └── /purchases
+    |
+    |__/Support
+        └──POST
+```        
 
 ## Responsive
 App is built to be usable on mobile devices, as well as responsive across mobile, tablet, laptop, and desktop screen resolutions.

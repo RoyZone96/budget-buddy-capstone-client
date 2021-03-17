@@ -110,14 +110,14 @@ export default class EditPurchase extends Component {
         <form className="new-budget" onSubmit={this.editBudget}>
           <p className="instructions"> Edit your purchase and click on the save when done. </p>
           <input
-            className="purchase_name"
+            className="input_title"
             placeholder="New name"
             type="text"
             name="purchase_name"
             onChange={event => this.setPurchaseName(event.target.value)} required />
-          <span>$</span>
+         
           <input className="money"
-            placeholder="0"
+            placeholder="$0.00"
             name="purchase_cost"
             onChange={event => this.setPurchaseCost(event.target.value)} required />
           <div>
