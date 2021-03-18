@@ -129,7 +129,7 @@ The app's functionality includes:
     * id (auto-generated)
     * user_id (auto-generated)
     * content
-## API Documentation???
+## API Documentation
 API Documentation details:
 ```text
     /api
