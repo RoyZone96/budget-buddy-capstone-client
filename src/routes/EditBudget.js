@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import config from '../config'
 import ApiContext from '../utilities/ApiContext'
-import ApiService from '../utilities/ApiService';
 
 
 
@@ -103,7 +102,7 @@ export default class EditBudget extends Component {
         let y = userData.income
         console.log(y)
 
-        this.addMoney(parseInt(x), parseInt(y))
+        this.addMoney(parseFloat(x).toFixed(2).split("$"), parseFloat(y).toFixed(2))
         this.props.history.push(`/budget/${budget_id}`)
 
 
@@ -231,7 +230,7 @@ export default class EditBudget extends Component {
         let y = event.target.purchase_cost.value
         console.log(y)
 
-        this.subtractMoney(parseInt(x), parseInt(y))
+        this.subtractMoney(parseFloat(x), parseFloat(y))
         this.props.history.push(`/budget/${budget_id}`)
     }
 
@@ -271,16 +270,13 @@ export default class EditBudget extends Component {
     render() {
         const budget_title = this.state.budget_title
         const money_available = this.state.money_available
-        const income = this.state.income
         const purchases_id = this.state.purchases.id
-        console.log(purchases_id)
         const currentBudgetId = this.props.match.params.id
 
 
         console.log(this.state.purchases)
         let purchases = this.state.purchases.map((purchase, idx) => {
             let purchaseOutput = `/purchases/${purchase.id}`
-            console.log(purchaseOutput)
             return (
                 <li className="purchase">
 
@@ -321,7 +317,7 @@ export default class EditBudget extends Component {
                     <span className="amount-left">Available money:</span><span>{money_available}</span>
                 </div>
                 <form onSubmit={this.addIncome} className="income-container">
-                    <span>$</span><input className="income" name="income" placeholder={income}></input>
+                    <input className="income" name="income" placeholder="$0.00"></input>
                     <button type="submit" >Add Income</button>
                 </form>
                 <div className="subtraction-section">

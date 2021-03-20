@@ -30,6 +30,7 @@ export default class AddBudget extends Component {
             budget_title: this.state.budget_title.value,
             money_available: this.state.money_available.value
         })
+        console.log(this.context)
 
         fetch(`${config.API_ENDPOINT}/budgets`,
             {
@@ -42,7 +43,6 @@ export default class AddBudget extends Component {
                     return res.json().then(e => Promise.reject(e))
                 return res.json()
             })
-            .then(response => this.context.addBudget(response))
             .then(() => {
                 this.props.history.push('/mybudgets')
             })
@@ -76,24 +76,24 @@ export default class AddBudget extends Component {
         return (
             <section className="new">
                 <div className="close">
-                <Link to="/mybudgets">
-                    <button className="delete">
-                        X
+                    <Link to="/mybudgets">
+                        <button className="delete">
+                            X
                     </button>
-                </Link>
+                    </Link>
                 </div>
                 <form className="new-budget" onSubmit={this.handleBudgetCreate}>
                     <p className="instructions"> Enter amount you have available </p>
-                   <div className = "spacer">
-                    <input
-                        className="input_title"
-                        placeholder="title" type="text"
-                        onChange={event => this.setBudgetTitle(event.target.value)} required />
-                   </div> 
-                   <div className = "spacer">
-                    <input className="money"
-                        placeholder="$0.00"
-                        onChange={event => this.setTargetAmount(event.target.value)} required />
+                    <div className="spacer">
+                        <input
+                            className="input_title"
+                            placeholder="title" type="text"
+                            onChange={event => this.setBudgetTitle(event.target.value)} required />
+                    </div>
+                    <div className="spacer">
+                        <input className="money"
+                            placeholder="$0.00"
+                            onChange={event => this.setTargetAmount(event.target.value)} required />
                     </div>
                     <div>
                         <button className="post-button" type="submit">Publish Budget</button>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import config from '../config'
 import ApiContext from '../utilities/ApiContext'
 
@@ -66,9 +66,8 @@ export default class BudgetNav extends Component {
         return res
       })
       .then(() => {
-        this.context.deleteBudget(id)
-        this.props.onDeleteBudget(id)
-        this.props.history.push(`/mybudgets`)
+        this.props.history.push(`/`)
+        this.forceUpdate();
       })
       .catch(error => {
         console.error({ error })

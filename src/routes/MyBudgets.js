@@ -63,30 +63,29 @@ export default class MyBudgets extends Component {
         const budgets = this.state.budgets
         console.log(budgets)
         let money_available = this.state.budgets.money_available
-        if (budgets.map == 0) { }
-        let budgetsOutput = budgets.map(budgets => {
-            console.log(budgets)
+        let budgetsOutput = budgets.map(budget => {
+            console.log(budget)
             if (money_available <= 0) {
-                <ul className="under">
+                <ul className="under" key={budget.id}>
                     <li className="menu-select">
                         <div className="menu-wrapper">
                             <div>
-                                <p className="title">{budgets.budget_title}</p>
-                                <p className="money_available">{budgets.money_available}</p>
-                                <BudgetNav id={budgets.id} />
+                                <p className="title">{budget.budget_title}</p>
+                                <p className="money_available">{budget.money_available}</p>
+                                <BudgetNav id={budget.id} />
                             </div>
                         </div>
                     </li>
                 </ul>
             }
             return (
-                <ul>
+                <ul key={budget.id}>
                     <li className="menu-select">
                         <div className="menu-wrapper">
                             <div>
-                                <p className="title">{budgets.budget_title}</p>
-                                <p className="money_available">{budgets.money_available}</p>
-                                <BudgetNav id={budgets.id} />
+                                <p className="title">{budget.budget_title}</p>
+                                <p className="money_available">{budget.money_available}</p>
+                                <BudgetNav id={budget.id} />
                             </div>
                         </div>
                     </li>
