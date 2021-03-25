@@ -102,22 +102,31 @@ export default class EditBudget extends Component {
         let y = userData.income
         console.log(y)
 
-        this.addMoney(parseFloat(x).toFixed(2).split("$"), parseFloat(y).toFixed(2))
+        this.addMoney(x, y)
         this.props.history.push(`/budget/${budget_id}`)
 
 
         console.log('triggered')
     }
 
-    addMoney = (x, y) => {
+    addMoney = (x_input, y_input) => {
+        let x = parseFloat(x_input)
+        let y = parseFloat(y_input)
+   
+        // console.log(typeof x);
+        // console.log(typeof y);
+
+        let money_available_comp = (x + y)
+        // console.log(money_available_comp)
+
         const updatedBudget = {
-            money_available: x + y
+            money_available: money_available_comp
         }
 
         const budget_id = this.props.match.params.id
 
-        console.log(updatedBudget)
-        console.log(budget_id)
+        // console.log(updatedBudget)
+        // console.log(budget_id)
 
         fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
             {
