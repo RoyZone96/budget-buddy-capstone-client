@@ -66,8 +66,8 @@ export default class BudgetNav extends Component {
         return res
       })
       .then(() => {
-        this.props.history.push(`/`)
-        this.forceUpdate();
+        window.location = `/mybudgets`
+  
       })
       .catch(error => {
         console.error({ error })

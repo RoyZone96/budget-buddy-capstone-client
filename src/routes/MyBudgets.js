@@ -84,7 +84,7 @@ export default class MyBudgets extends Component {
                         <div className="menu-wrapper">
                             <div>
                                 <p className="title">{budget.budget_title}</p>
-                                <p className="money_available">{budget.money_available}</p>
+                                <p className="money_available">${budget.money_available}</p>
                                 <BudgetNav id={budget.id} />
                             </div>
                         </div>

@@ -103,7 +103,7 @@ export default class EditBudget extends Component {
         console.log(y)
 
         this.addMoney(x, y)
-        this.props.history.push(`/budget/${budget_id}`)
+        // this.props.history.push(`/budget/${budget_id}`)
 
 
         console.log('triggered')
@@ -112,7 +112,7 @@ export default class EditBudget extends Component {
     addMoney = (x_input, y_input) => {
         let x = parseFloat(x_input)
         let y = parseFloat(y_input)
-   
+
         // console.log(typeof x);
         // console.log(typeof y);
 
@@ -126,40 +126,6 @@ export default class EditBudget extends Component {
         const budget_id = this.props.match.params.id
 
         // console.log(updatedBudget)
-        // console.log(budget_id)
-
-        fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
-            {
-                method: 'PATCH',
-                headers: { 'content-type': 'application/json' },
-                body: JSON.stringify(updatedBudget),
-            })
-            .then(res => {
-                if (!res.ok)
-                    return res.json().then(e => Promise.reject(e))
-                return res.json()
-            })
-            .then(
-                this.setState({
-                    money_available: this.state.money_available
-                }),
-                this.props.history.push(`/budget/${budget_id}`)
-            )
-            .catch(error => {
-                console.log(error.message)
-            })
-    }
-
-
-    subtractMoney = (x, y) => {
-        const updatedBudget = {
-            money_available: x - y
-        }
-
-        console.log(updatedBudget)
-
-
-        const budget_id = this.props.match.params.id
         console.log(budget_id)
 
         fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
@@ -173,18 +139,17 @@ export default class EditBudget extends Component {
                     return res.json().then(e => Promise.reject(e))
                 return res.json()
             })
-            .then(
+            .then(() => {
                 this.setState({
                     money_available: this.state.money_available
-                }),
-                this.props.history.push(`/budget/${budget_id}`)
-            )
+                });
+                // this.props.history.push(`/budget/${budget_id}`)
+                window.location = `/budget/${budget_id}`
+            })
             .catch(error => {
                 console.log(error.message)
             })
-
     }
-
 
     addPurchase = (event) => {
         event.preventDefault();
@@ -228,19 +193,61 @@ export default class EditBudget extends Component {
     }
 
 
+    subtractMoney = (x_input, y_input) => {
+        let x = parseFloat(x_input)
+        let y = parseFloat(y_input)
+
+        // console.log(typeof x);
+        // console.log(typeof y);
+
+        let money_available_comp = (x - y)
+        // console.log(money_available_comp)
+
+        const updatedBudget = {
+            money_available: money_available_comp
+        }
+
+        console.log(updatedBudget)
+
+
+        const budget_id = this.props.match.params.id
+        console.log(budget_id)
+
+        fetch(`${config.API_ENDPOINT}/budgets/${budget_id}`,
+            {
+                method: 'PATCH',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(updatedBudget),
+            })
+            .then(res => {
+                if (!res.ok)
+                    return res.json().then(e => Promise.reject(e))
+                return res.json()
+            })
+            .then(() => {
+                this.setState({
+                    money_available: this.state.money_available
+                });
+                window.location = `/budget/${budget_id}`
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+
+    }
+
+
     calculateDifference = (event) => {
         event.preventDefault();
         console.log("triggered")
 
-        const budget_id = this.props.match.params.id
 
         let x = event.target.money_available.value
         console.log(x)
         let y = event.target.purchase_cost.value
         console.log(y)
 
-        this.subtractMoney(parseFloat(x), parseFloat(y))
-        this.props.history.push(`/budget/${budget_id}`)
+        this.subtractMoney(x, y)
     }
 
 
@@ -264,7 +271,6 @@ export default class EditBudget extends Component {
                 return res
             })
             .then(() => {
-                this.props.onDeletePurchase(purchases_id)
                 this.addMoney(parseInt(delete_money_available), parseInt(delete_purchase_cost))
                 this.props.history.push(`/budget/${budget_id}`)
             })
@@ -323,7 +329,7 @@ export default class EditBudget extends Component {
                 </div>
                 <div className="available">
                     <h1 className="budget_title"> {budget_title} </h1>
-                    <span className="amount-left">Available money:</span><span>{money_available}</span>
+                    <span className="amount-left">Available money:</span><span>${money_available}</span>
                 </div>
                 <form onSubmit={this.addIncome} className="income-container">
                     <input className="income" name="income" placeholder="$0.00"></input>
